@@ -1,0 +1,52 @@
+<apex:page controller="ProductListController" sidebar="false">
+    <apex:slds />
+    <apex:form >
+    <div class="slds-grid slds-m-top_large">
+                        
+                        <div class="slds-col slds-p-left_large slds-p-right_large">
+                            <article class="slds-card">
+                                <div class="slds-card__header slds-grid slds-border_bottom ">
+                                    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                        <div class="slds-media__body slds-truncate slds-align_absolute-center slds-p-bottom_small"> 
+                                            <span class="slds-text-heading_medium">{!FullProdInfo.Name}</span>
+                                        </div>
+                                    </header>
+                                </div>
+                                
+                                <div class="slds-card__body">
+                                    <div class="slds-grid slds-gutters">
+                                      <div class="slds-col slds-size_1-of-2">
+                                        <span><img src="{!FullProdInfo.Image_Url__c}" width="500px"/></span>
+                                      </div>
+                                      <div class="slds-col slds-size_1-of-2 slds-grid_vertical">
+                                        <div class="slds-col slds-p-bottom_small">
+                                        	<h3 class="slds-text-heading_small">AMOUNT:</h3>
+                                            <p>
+                                               {!FullProdInfo.Units_Available__c} 
+                                            </p>
+                                      	</div>
+                                      <div class="slds-col slds-p-bottom_medium">
+                                        <h3 class="slds-text-heading_small">TITLE:</h3>
+                                            <p>
+                                               {!FullProdInfo.Info__c} 
+                                            </p>
+                                      </div>
+                                      <div class="slds-col slds-p-bottom_medium">
+                                        <h3 class="slds-text-heading_small">DESCRIPTION:</h3>
+                                            <p>
+                                               {!FullProdInfo.Product_Description__c} 
+                                            </p>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div> 
+                                
+                                <div class="slds-card__footer"> 
+                                    <apex:commandButton styleClass="slds-button slds-button_neutral" value="To Shopping" action="/apex/ProductList"/>  
+                                    <apex:commandButton styleClass="slds-button slds-button_brand" value="Buy" action="{!URLFOR('/apex/ProductBuy?id=' +FullProdInfo.Id)}"/>
+                                </div>
+                            </article>
+                        </div>
+  </div>
+ </apex:form>       
+</apex:page>

@@ -1,0 +1,68 @@
+<apex:page controller="ProductListController" sidebar="false">
+    <apex:slds />
+     <apex:pageBlock title="Product List" id="products_list">
+      <apex:form >   
+            
+          <table class="slds-table slds-table_bordered slds-table_fixed-layout">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th class="slds-size_3-of-12" scope="col">
+                    	<div class="slds-truncate" title="Image">Image</div>
+                    </th>
+                    <th class="slds-size_1-of-12" scope="col">
+                    	<div class="slds-truncate" title="Name"></div>
+                    </th>
+                    <th class="slds-size_3-of-12" scope="col">
+                   	 	<div class="slds-truncate" title="Info">Info</div>
+                    </th>
+                    <th class="slds-size_3-of-12" scope="col">
+                    	<div class="slds-truncate" title="Description">Description</div>
+                    </th>
+                    <th class="slds-size_1-of-12" scope="col">
+                    	<div class="slds-truncate" title="Cost">
+                          <apex:commandLink action="{! sortByCost }" reRender="products_list">Cost</apex:commandLink>
+                        </div>
+                    </th>
+                    <th class="slds-size_1-of-12" scope="col">
+                    	<div class="slds-truncate" title="Buy"></div>
+                    </th>
+               </tr>
+            </thead>
+            <tbody>
+                
+                <apex:repeat value="{!Products}" var="pr">
+                  
+                  <tr>
+                    <th scope="row" data-label="Image" style="height: 150px">
+                        <div class="" title="Image"><a href="/apex/ProductInfo?id={!pr.id}" target="_blank"><img src="{!pr.Image_Url__c}" width="300px"/></a></div>
+                    </th>
+                    <td scope="row" data-label="Name">
+                        <div class="" title="Name"><a href="/apex/ProductInfo?id={!pr.id}">{!pr.Name}</a></div>
+                    </td>
+                    <td data-label="Info" >
+                        <div class="slds-truncate" title="Info" style="white-space: normal; word-wrap: break-word;">
+                            {!pr.Info__c}</div>
+                    </td>
+                    <td data-label="Description" >
+                        <div class="slds-truncate" style="white-space: normal; word-wrap: break-word;" title="Description">
+                            {!pr.Product_Description__c} <a href="/apex/ProductInfo?id={!pr.id}" target="_blank">More</a></div>
+                    </td>
+                    <td data-label="Cost">
+                    	<div class="slds-truncate" title="Cost">{!pr.Unit_Price__c} $</div>
+                    </td>
+                    <td data-label="Button">
+                    	<div class="slds-truncate" title="Buy"> 
+                            <apex:commandButton styleClass="slds-button slds-button_brand" value="Buy" action="{!URLFOR('/apex/ProductBuy?id=' +pr.Id)}"/>
+                        </div>
+                    </td>  
+                </tr>
+                    
+              </apex:repeat>
+                
+            </tbody>
+          </table>
+            
+     </apex:form>   
+    </apex:pageBlock>
+       
+</apex:page>

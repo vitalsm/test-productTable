@@ -1,0 +1,101 @@
+<apex:page controller="ProductBuyController" sidebar="false">
+    <html>
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"/>    
+    <apex:slds />
+    <apex:form >
+    <div class="slds-grid slds-m-top_large">
+                        
+                        <div class="slds-col slds-p-left_large slds-p-right_large">
+                            <article class="slds-card">
+                                <div class="slds-card__header slds-grid slds-border_bottom ">
+                                    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                        
+                                        <div class=" slds-coll slds-size_1-of-2 slds-media__body slds-truncate slds-align_absolute-center slds-p-bottom_small"> 
+                                            <span class="slds-text-heading_medium">Contact Information</span>
+                                        </div>
+                                        <div class=" slds-coll slds-size_1-of-2 slds-media__body slds-truncate slds-align_absolute-center slds-p-bottom_small"> 
+                                            <span class="slds-text-heading_medium">Product Information</span>
+                                        </div>
+                                    </header>
+                                </div>
+                                
+                                <div class="slds-card__body">
+                                    <div class="slds-grid slds-gutters">
+                                      <div class="slds-col slds-size_1-of-2 slds-align_absolute-center">
+                                            <div class="slds-form slds-form_horizontal" style="width:400px">
+                                              <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="input-id-01">
+                                                    <abbr class="slds-required" title="required">*</abbr>Email</label>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputField styleClass="slds-input" value="{!Contact.Email}"/>
+                                                </div>
+                                              </div>
+                                              <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="input-id-02">First Name</label>
+                                                <div class="slds-form-element__control">
+                                                  <apex:inputField styleClass="slds-input" value="{!Contact.FirstName}"/>
+                                                </div>
+                                              </div>
+                                              <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="input-id-03">
+                                                <abbr class="slds-required" title="required">*</abbr>Last Name</label>  
+                                                <div class="slds-form-element__control">
+                                                  <apex:inputField styleClass="slds-input" value="{!Contact.LastName}"/>
+                                                </div>
+                                              </div>  
+                                            </div>
+                                      </div>
+                                      <div class="slds-col slds-size_1-of-2 slds-align_absolute-center">
+                                       	<div class="slds-form slds-form_horizontal" style="width:400px">
+                                              <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="input-id-04">Product Name</label>
+                                                <div class="slds-form-element__control">
+                                                  <span class="slds-form-element__static">{!ProdInfo.Name}</span>
+                                                </div>
+                                              </div>
+                                              <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="cost">Cost</label>
+                                                <div class="slds-form-element__control">
+                                                  <span class="slds-form-element__static" id="cost">{!ProdInfo.Unit_Price__c} <span>$</span></span>
+                                                </div>
+                                              </div>
+                                              <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="count">Unit Count</label>  
+                                                <div class="slds-form-element__control">
+                                                  <apex:inputField styleClass="slds-input" id="count" value="{!Order.Units__c}"/>
+                                                      
+                                                </div>
+                                              </div>
+                                              <div class="slds-form-element">
+                                                 <label class="slds-form-element__label" for="amount">Total Amount</label>  
+                                                 <div class="slds-form-element__control">
+                                                   <span class="slds-form-element__static" id="amount">0 </span><span> $</span>
+                                                 </div>
+                                              </div>	
+                                            </div> 
+                                      </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-align_absolute-center">
+                                        <apex:pageMessages id="warn"/>
+                                    </div>
+                                </div> 
+                                
+                                <div class="slds-card__footer"> 
+                                    <apex:commandButton styleClass="slds-button slds-button_neutral" value="To Shopping" action="/apex/ProductList"/>  
+                                    <apex:commandButton styleClass="slds-button slds-button_brand" value="Buy" action="{!buy}"/>
+                                </div>
+                            </article>
+                        </div>
+  </div>
+ </apex:form> 
+    		<script type="text/javascript">
+              window.onload = function(){
+    			var count = document.getElementById('{! $Component.j_id0:j_id4:count}');
+    			var amount = document.getElementById('amount');
+    			count.addEventListener("keyup", function() {
+                	amount.textContent = count.value * {!ProdInfo.Unit_Price__c};
+                });
+             };	
+              </script>
+    </html>   
+</apex:page>
