@@ -1,0 +1,92 @@
+<apex:page controller="ProductStorageController" sidebar="false" >
+<apex:slds />
+    <script>
+		onload();
+	</script>
+    <apex:pageBlock title="Product Storage" id="productStorage">
+    <apex:form >
+    <apex:actionFunction name="onload" action="{!ViewData}" reRender="productStorage"/>    
+    <apex:pageBlockSection >
+    	    
+    </apex:pageBlockSection>    
+	<table class="slds-table slds-table_bordered slds-table_resizable-cols slds-table_fixed-layout" role="grid">
+		<thead>
+			<tr class="slds-line-height_reset">
+				<th aria-sort="none" class="slds-is-sortable slds-is-resizable slds-text-title_caps" aria-label="Product" scope="col">
+					<apex:commandLink styleClass="slds-th__action slds-text-link_reset" action="{!ViewData}" value="Name{!IF(sortExpression=='Name',IF(sortDir='ASC','▼','▲'),'')}" reRender="productStorage">
+             			<apex:param value="Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+          			</apex:commandLink>
+				</th>
+				<th aria-sort="none" class="slds-is-sortable slds-is-resizable slds-text-title_caps" aria-label="Quantity" scope="col">
+					<apex:commandLink styleClass="slds-th__action slds-text-link_reset" action="{!ViewData}" value="Quantity{!IF(sortExpression=='quantity__c',IF(sortDir='ASC','▼','▲'),'')}" reRender="productStorage">
+             			<apex:param value="quantity__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+          			</apex:commandLink>
+				</th>
+				<th aria-sort="none" class="slds-is-sortable slds-is-resizable slds-text-title_caps" aria-label="Date Added" scope="col">
+					<apex:commandLink styleClass="slds-th__action slds-text-link_reset" action="{!ViewData}" value="Added Date{!IF(sortExpression=='AddedDate__c',IF(sortDir='ASC','▼','▲'),'')}" reRender="productStorage">
+             			<apex:param value="AddedDate__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+          			</apex:commandLink>
+				</th>
+				<th aria-sort="none" class="slds-is-sortable slds-is-resizable slds-text-title_caps" aria-label="Release Date" scope="col">
+					<apex:commandLink styleClass="slds-th__action slds-text-link_reset" action="{!ViewData}" value="Release Date{!IF(sortExpression=='ReleaseDate__c',IF(sortDir='ASC','▼','▲'),'')}" reRender="productStorage">
+             			<apex:param value="ReleaseDate__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+          			</apex:commandLink>
+				</th>
+				<th aria-sort="none" class="slds-is-sortable slds-is-resizable slds-text-title_caps" aria-label="Price" scope="col">
+					<apex:commandLink styleClass="slds-th__action slds-text-link_reset" action="{!ViewData}" value="Price{!IF(sortExpression=='Price__c',IF(sortDir='ASC','▼','▲'),'')}" reRender="productStorage">
+             			<apex:param value="Price__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+          			</apex:commandLink>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+            <apex:repeat value="{!ProductStor}" var="pr">
+			<tr class="slds-hint-parent slds-align-top">
+				<th scope="row">
+					<div class="slds-media">
+						<div class="slds-media__figure">
+							<div class="slds-size_xx-small">
+								<img alt="Product image" src="{!pr.ImageUrl__c}" title="Product" />
+							</div>
+						</div>
+							<div class="slds-media__body">
+								<div class="slds-truncate" title="Name"><a href="javascript:void(0);" tabindex="0">{!pr.Name}</a></div>
+								<ul>
+									<li class="slds-truncate" title="Type">Type:
+										<strong>{!pr.ProductType__c}</strong>
+									</li>
+									<li class="slds-truncate" title="Color: Blue">Quantity:
+										<strong>{!pr.UnitsAvailable__c}</strong>
+									</li>
+								</ul>
+								<p class="slds-text-color_success">In Stock</p>
+							</div>
+						</div>
+					</th>
+					<td role="gridcell">
+						<div class="slds-truncate" title="Quantity">{!pr.quantity__c}</div>
+					</td>
+					<td role="gridcell">
+						<div class="slds-truncate" title="Added date">
+                        	<apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+    							<apex:param value="{!pr.AddedDate__c}" /> 
+							</apex:outputText>    
+                        </div>
+					</td>
+					<td role="gridcell">
+						<div class="slds-truncate" title="Release date">
+                        	 <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+    							<apex:param value="{!pr.ReleaseDate__c}" /> 
+							</apex:outputText>   
+                        </div>
+					</td>
+					<td role="gridcell">
+						<div class="slds-truncate" title="Price">$<span>{!pr.Price__c}</span></div>
+					</td>
+				</tr>
+			  </apex:repeat>
+			</tbody>
+		</table>
+    </apex:form>
+    </apex:pageBlock>
+</apex:page>
